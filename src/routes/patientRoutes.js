@@ -9,6 +9,6 @@ const patientRepository = new PatientRepository(Patient)
 const service = new PatientService(patientRepository)
 const controller =  new PatientController(service)
 
-router.post("/user", controller.create.bind(controller))
+router.post("/patients", controller.create.bind(controller))
 
 export { router }

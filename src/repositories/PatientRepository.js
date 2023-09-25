@@ -10,8 +10,8 @@ class PatientRepository{
     async findById(id){
         return this.model.findById(id)
     }
-    async findByEmail(id){
-        return this.model.findOne(id)
+    async findByEmail(email){
+        return this.model.findOne({email})
     }
 
     async pushSchedule(patientId, scheduleId){

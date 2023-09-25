@@ -3,19 +3,17 @@ class SchedulesController {
         this.service = service
     }
 
-    async create (req, res){
-        const { body, params: { id } } = req
-
-        const patient = await this.service.findPatientById(id)
-
-        if(!patient){
-            return res.status(400).json({details: "paciente não existe"})
+    async create(req, res) {
+        const { body, params: { id } } = req;
+    
+        try {
+            const schedule = await this.service.create(body, id);
+            return res.status(201).json(schedule);
+        } catch (error) {
+            return res.status(400).json({ error: error.message });
         }
-
-        const schedule = await this.service.create(body, id)
-        
-        return schedule
     }
+    
 }
 
 export { SchedulesController }

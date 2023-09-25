@@ -17,6 +17,7 @@ class PatientService {
         const patient = await this.patientRepository.findByEmail(email)
         return patient
     }
+    
 }
 
 export { PatientService }

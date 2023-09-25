@@ -3,14 +3,16 @@ class ScheduleRepository{
         this.model = model
     }
 
-    async create(data){
-        return this.model.create(data)
+    async create(data) {
+        return await this.model.create(data);
     }
 
-    async findById(id){
-        return this.model.findById(id)
+    async findById(id) {
+        return await this.model.findById(id);
     }
-    
+    async findByTime(time) {
+        return this.model.findOne({ time });
+    }
 }
 
 export { ScheduleRepository }

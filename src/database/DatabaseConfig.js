@@ -6,7 +6,7 @@ class DatabaseConfig {
       console.log("Database is connected")
     })
 
-    await mongoose.connect("mongodb+srv://arnia_luis:12345@arnia.qw3dnnl.mongodb.net/joao")
+    await mongoose.connect("mongodb+srv://admin:isEx1DAqFiQEo2k5@tcc.zpk1kby.mongodb.net/tcc")
   }
 }
 
