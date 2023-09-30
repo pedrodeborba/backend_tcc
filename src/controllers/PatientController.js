@@ -1,23 +1,30 @@
-class PatientController {
-    constructor(service){
-        this.service = service
-    }
+import bcrypt from "bcrypt";
+import { Patient } from "../entitites/Patient.js";
 
-    async create(req, res) {
-        const { body } = req;
-    
-        // Verificando se o paciente já existe pelo email
-        const existingPatient = await this.service.findByEmail(body.email);
-    
-        if (existingPatient) {
-            return res.status(400).json({ details: "Paciente já existe" });
-        }
-    
-        // Criando o paciente caso não exista
-        const result = await this.service.create(body);
-        return res.status(201).json(result);
+class PatientController {
+  constructor(service) {
+    this.service = service;
+  }
+
+  async authenticatePatient(req, res) {
+    const { email, password } = req.body;
+
+    try {
+      const patient = await Patient.findOne({ email });
+
+      if (!patient) {
+        return res.status(401).json({ message: "Email inválido" });
+      }
+      if (!bcrypt.compareSync(password, patient.password)) {
+        return res.status(401).json({ message: "Senha inválida" });
+      }
+
+      return res.status(200).json({ message: "Login bem-sucedido" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Erro ao fazer login" });
     }
-    
+  }
 }
 
-export { PatientController }
+export { PatientController };

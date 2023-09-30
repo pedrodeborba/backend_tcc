@@ -14,4 +14,4 @@ const controller = new SchedulesController(service)
 
 router.post("/schedule/:id", controller.create.bind(controller))
 
-export { router}
+export { router }
