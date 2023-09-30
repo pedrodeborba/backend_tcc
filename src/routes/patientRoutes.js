@@ -9,6 +9,6 @@ const patientRepository = new PatientRepository(Patient);
 const service = new PatientService(patientRepository);
 const controller = new PatientController(service);
 
-router.get("/login", controller.authenticatePatient);
+router.post("/login", controller.authenticatePatient);
 
 export { router };
