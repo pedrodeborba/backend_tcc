@@ -8,6 +8,7 @@ const schedulesSchema = new mongoose.Schema(
         timestamp: Number,
         year: Number,
         time: { type: String, required: true, unique: true }, 
+        patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Patient' },
     },
     { timestamps: true }
 );
