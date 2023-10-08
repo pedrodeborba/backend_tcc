@@ -19,7 +19,9 @@ class PatientController {
         return res.status(401).json({ message: "Senha inválida" });
       }
 
-      res.status(200).json({ message: 'Login bem-sucedido', patientId: patient._id });
+      //pegar o id do paciente, nome e quantidade de agendamentos feitos (schedules.length)
+      res.status(200).json({ message: 'Login bem-sucedido', patientId: patient._id, patientName: patient.name, patientSchedule: patient.schedules.length });
+
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Erro ao fazer login" });
