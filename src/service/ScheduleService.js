@@ -5,15 +5,17 @@ class ScheduleService {
     }
 
     async create(data, patientId) {
-        // Verificando se o horário já está ocupado
-        const existingSchedule = await this.scheduleRepository.findByTime(data.time);
-        if (existingSchedule) {
-            throw new Error('Horário já está ocupado');
+        const { dateString, time } = data;
+        
+        const schedule = await this.scheduleRepository.findByDateAndTime(dateString,time);
+        if(dateString && time && schedule){
+            throw new Error('Schedule already exists');
         }
-    
+
         const result = await this.scheduleRepository.create(data);
         await this.patientRepository.pushSchedule(patientId, result._id);
         return result;
+   
     }
     
     async findById(id){
