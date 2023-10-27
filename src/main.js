@@ -14,5 +14,9 @@ app.use(express.json())
 app.use(patientRoutes)
 app.use(scheduleRoutes)
 
+app.get("/", (req, res) => {
+    res.status(200).send("<h1>API is running...</h1>")
+})
+
 
 app.listen(3002, () => console.log("Server is running at port 3002"))
