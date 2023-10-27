@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class DatabaseConfig {
   static async initialize() {
@@ -6,7 +9,11 @@ class DatabaseConfig {
       console.log("Database is connected")
     })
 
-    await mongoose.connect("mongodb+srv://admin:isEx1DAqFiQEo2k5@tcc.zpk1kby.mongodb.net/tcc")
+    const dbUri = process.env.DATABASE_URL;
+    await mongoose.connect(dbUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   }
 }
 
