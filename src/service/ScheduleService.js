@@ -5,17 +5,21 @@ class ScheduleService {
     }
 
     async create(data, patientId) {
-        const { dateString, time } = data;
-        
-        const schedule = await this.scheduleRepository.findByDateAndTime(dateString,time);
-        if(dateString && time && schedule){
-            throw new Error('Schedule already exists');
-        }
+        const { time, day, month, year } = data;
+
+        const newTime = time + ' / ' + day + ' / ' + month + ' / ' + year;
+        data={...data, time:newTime}
+
+        const schedule = await this.scheduleRepository.findByTime(newTime);
+
+        if (schedule) {
+            const errorMessage = 'Já existe esse horário marcado no mesmo dia';
+            throw { status: 400, message: errorMessage, error: errorMessage };
+        }          
 
         const result = await this.scheduleRepository.create(data);
         await this.patientRepository.pushSchedule(patientId, result._id);
         return result;
-   
     }
     
     async findById(id){
@@ -27,7 +31,6 @@ class ScheduleService {
         const patient = await this.patientRepository.findById(id)
         return patient
     }
-    
 }
 
 export { ScheduleService }
